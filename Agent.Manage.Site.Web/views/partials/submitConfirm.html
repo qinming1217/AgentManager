@@ -1,0 +1,192 @@
+﻿<div class="container" style="width:100%;">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h3 ng-click="toggleCondition()">查询条件</h3>
+        </div>
+    </div>
+</div>
+<div class="container" ng-show="isShowCondition" style="width:100%">
+    <div class="row">
+        <div class="col-md-4 pull-left">
+            <div class="col-md-4 text-right pull-left">
+                <label>客户姓名:</label>
+            </div>
+            <div class="col-md-8 text-left conditionStyle pull-left">
+                <input type="text" class="inputStyle" ng-model="condition.customerName" maxlength="10" />
+            </div>
+        </div>
+        <div class="col-md-4 pull-left">
+            <div class="col-md-4 text-right pull-left">
+                <label>手机号码:</label>
+            </div>
+            <div class="col-md-8 text-left conditionStyle pull-left">
+                <input type="text" class="inputStyle" ng-model="condition.mobileNo" maxlength="20" />
+            </div>
+        </div>
+        <div class="col-md-4 pull-left">
+            <div class="col-md-4 text-right pull-left">
+                <label>代&nbsp;理&nbsp;人&nbsp;姓&nbsp;名:</label>
+            </div>
+            <div class="col-md-8 text-left conditionStyle pull-left">
+                <input type="text" class="inputStyle" ng-model="condition.agentName" maxlength="10" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 pull-left">
+            <div class="col-md-4 text-right pull-left">
+                <label>身份证号:</label>
+            </div>
+            <div class="col-md-8 text-left conditionStyle pull-left">
+                <input type="text" class="inputStyle" ng-model="condition.idCard" maxlength="20" />
+            </div>
+        </div>
+        <div class="col-md-4 pull-left">
+            <div class="col-md-4 text-right pull-left">
+                <label>是否知晓:</label>
+            </div>
+            <div class="col-md-8 text-left conditionStyle pull-left">
+                <select class="selectStyle" ng-model="condition.isKnow">
+                    <option value="0"></option>
+                    <option value="1">否</option>
+                    <option value="2">是</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-4 pull-left">
+            <div class="col-md-4 text-right pull-left">
+                <label>代理人身份证:</label>
+            </div>
+            <div class="col-md-8 text-left conditionStyle pull-left">
+                <input type="text" class="inputStyle" ng-model="condition.agentIdCard" maxlength="20" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 pull-left">
+            <div class="col-md-4 text-right pull-left">
+                <label>推荐编号:</label>
+            </div>
+            <div class="col-md-8 text-left conditionStyle pull-left">
+                <input type="text" class="inputStyle" ng-model="condition.applyId" maxlength="10" />
+            </div>
+        </div>
+        <div class="col-md-4 pull-left">
+            <div class="col-md-4 text-right conditionStyle pull-left">
+                <label>邀约结果:</label>
+            </div>
+            <div class="col-md-8 text-left pull-left">
+                <select class="selectStyle" ng-model="condition.status">
+                    <option value="0"></option>
+                    <option value="1">自主交单中</option>
+                    <option value="2">电销跟进中</option>
+                    <option value="3">邀约完成</option>
+                    <option value="4">邀约失败</option>
+                    <option value="5">交单确认</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-4 pull-left">
+            <div class="col-md-4 text-right conditionStyle pull-left">
+                <label>VBS&nbsp;业&nbsp;务&nbsp;&nbsp;号:</label>
+            </div>
+            <div class="col-md-8 text-left pull-left">
+                <input type="text" class="inputStyle" ng-model="condition.vbsBid" maxlength="10" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 pull-left">
+            <div class="col-md-4 text-right pull-left">
+                <label>推荐日期:</label>
+            </div>
+            <div class="col-md-8 text-left conditionStyle pull-left">
+                <input type="text" v-datepicker id="applyTimeBegin" class="inputStyle dateStyle" ng-model="condition.applyTimeBegin" />
+                到<input type="text" v-datepicker id="applyTimeEnd" class="inputStyle dateStyle" ng-model="condition.applyTimeEnd" />
+            </div>
+        </div>
+        <div class="col-md-4 pull-left">
+            <div class="col-md-4 text-right pull-left">
+                <label>邀约日期:</label>
+            </div>
+            <div class="col-md-8 text-left conditionStyle pull-left">
+                <input type="text" v-datepicker id="inviteTimeBegin" class="inputStyle dateStyle" ng-model="condition.inviteTimeBegin" />
+                到<input type="text" v-datepicker id="inviteTimeEnd" class="inputStyle dateStyle" ng-model="condition.inviteTimeEnd" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <input type="button" class="btn-info" value="重置" ng-click="clearCondition()" />
+            <input type="button" class="btn-info" value="查询" ng-click="queryOrderList(true);" />
+            <hr />
+        </div>
+    </div>
+</div>
+<div class="container text-center" style="width: 100%;overflow-x: auto">
+    <table class=" table-bordered text-center" style="width:1400px;">
+        <thead>
+            <tr class="bg-success listTrStyle">
+                <td>NO</td>
+                <td>推荐编号</td>
+                <td>推荐日期</td>
+                <td>客户姓名</td>
+                <td>身份证</td>
+                <td>手机号</td>
+                <td>是否知晓</td>
+                <td>代理人姓名</td>
+                <td>代理人身份证</td>
+                <td>邀约日期</td>
+                <td>VBS订单号</td>
+                <td>处理</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="listTrStyle" ng-repeat="order in orderList">
+                <td>{{::$index+1}}</td>
+                <td>{{::order.orderId}}</td>
+                <td>{{::order.applyTime}}</td>
+                <td>{{::order.customerName}}</td>
+                <td>{{::order.idCard}}</td>
+                <td>{{::order.mobileNo}}</td>
+                <td>{{::order.isKnow?'是':'否'}}</td>
+                <td>{{::order.agentName}}</td>
+                <td>{{::order.agentIdCard}}</td>
+                <td>{{::order.visitTime}}</td>
+                <td>{{order.vbsBid}}</td>
+                <td>
+                    <a class="btn btn-default" ng-click="alterConfrim($index)" ng-show="order.canSubmitOrder==1">交单确认</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="container" style="width:100%;">
+    <div class="row">
+        <div class="col-md-4 text-left pull-left" style="margin-top:10px;">
+            <p>第{{pageIndex}}/{{pageNum}}页 每页{{pageSize}}条 共{{totalNum}}条记录</p>
+        </div>
+        <div class="col-md-8 pull-right">
+            <ul class="nav nav-tabs ulStyle">
+                <li style="margin-top:8px;">
+                    第<input type="text" class="inputStyle" style="width:30px;" ng-model="pageIndex" />页
+                </li>
+                <li style="margin-top:8px;">
+                    <input type="button" class="btn-danger" value="GO" ng-click="jumpPage()" />
+                </li>
+                <li>
+                    <a ng-click="firstPage()" class="hand">首页</a>
+                </li>
+                <li>
+                    <a ng-click="prePage()" class="hand">上一页</a>
+                </li>
+                <li>
+                    <a ng-click="nextPage()" class="hand">下一页</a>
+                </li>
+                <li>
+                    <a ng-click="lastPage()" class="hand">尾页</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

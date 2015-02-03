@@ -1,0 +1,28 @@
+﻿<div class="container" style="width:100%">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h3>查询条件</h3>
+        </div>
+    </div>
+</div>
+<div class="container" style="width:100%">
+    <form name="reportForm" method="post" action="AgentRequest.html?reqtype=ExportReport">
+        <div class="row">
+            <div class="col-md-12 pull-right">
+                <div class="col-md-4 text-right pull-left">
+                    <label>推荐记录创建时间:</label>
+                </div>
+                <div class="col-md-8 text-left conditionStyle pull-left">
+                    <input type="text" id="applyTimeBegin" name="applyTimeBegin" v-datepicker class="inputStyle dateStyle" ng-model="condition.applyTimeBegin" />
+                    到<input type="text" id="applyTimeEnd" name="applyTimeEnd" v-datepicker class="inputStyle dateStyle" ng-model="condition.applyTimeEnd" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center" style="width:100%;">
+                <input type="button" class="btn-info" style="margin-bottom:10px;" value="导出" ng-click="exportReport()" />
+                <hr />
+            </div>
+        </div>
+    </form>
+</div>

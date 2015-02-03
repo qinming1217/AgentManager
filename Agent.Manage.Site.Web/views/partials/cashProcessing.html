@@ -1,0 +1,145 @@
+﻿<div class="container" style="width:100%">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h3 ng-click="toggleCondition()">查询条件</h3>
+        </div>
+    </div>
+</div>
+<div class="container" ng-show="isShowCondition" style="width:100%">
+    <form name="cashQueryForm" method="post" action="AgentRequest.html?reqtype=ExportWithdrawApply">
+        <div class="row">
+            <div class="col-md-6 pull-left">
+                <div class="col-md-4 text-right pull-left">
+                    <label>代理人姓名:</label>
+                </div>
+                <div class="col-md-8 text-left conditionStyle pull-left">
+                    <input type="text" id="agentName" name="agentName" class="inputStyle" ng-model="condition.agentName" maxlength="10" />
+                </div>
+            </div>
+            <div class="col-md-4 pull-right">
+                <div class="col-md-4 text-right pull-left">
+                    <label>&nbsp;手&nbsp;&nbsp;机&nbsp;&nbsp;号&nbsp;&nbsp;码:</label>
+                </div>
+                <div class="col-md-8 text-left conditionStyle pull-left">
+                    <input type="text" id="agentMobile" name="agentMobile" class="inputStyle" ng-model="condition.agentMobile" maxlength="20" />
+                    <p style="width:300px;"></p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 pull-left">
+                <div class="col-md-4 text-right pull-left">
+                    <label>身&nbsp;份&nbsp;证&nbsp;号:</label>
+                </div>
+                <div class="col-md-8 text-left conditionStyle pull-left">
+                    <input type="text" class="idCardStyle" id="agentIdCard" name="agentIdCard" ng-model="condition.agentIdCard" maxlength="20" />
+                </div>
+            </div>
+            <div class="col-md-6 pull-right">
+                <div class="col-md-4 text-right pull-left">
+                    <label>提现申请日期:</label>
+                </div>
+                <div class="col-md-8 text-left conditionStyle pull-left">
+                    <input type="text" id="applyTimeBegin" name="applyTimeBegin" v-datepicker class="inputStyle dateStyle" ng-model="condition.applyTimeBegin" />
+                    到<input type="text" id="applyTimeEnd" name="applyTimeEnd" v-datepicker class="inputStyle dateStyle" ng-model="condition.applyTimeEnd" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 pull-left">
+                <div class="col-md-4 text-right pull-left">
+                    <label>打&nbsp;款&nbsp;状&nbsp;态:</label>
+                </div>
+                <div class="col-md-8 text-left conditionStyle pull-left">
+                    <select class="selectStyle" id="payStatus" name="payStatus" ng-model="condition.payStatus">
+                        <option value="0"></option>
+                        <option value="2">未打款</option>
+                        <option value="3">已打款</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6 pull-right">
+                <div class="col-md-4 text-right pull-left">
+                    <label>&nbsp;打&nbsp;&nbsp;款&nbsp;&nbsp;日&nbsp;&nbsp;期:</label>
+                </div><div class="col-md-8 text-left conditionStyle pull-left">
+                    <input type="text" id="payTimeBegin" name="payTimeBegin" v-datepicker class="inputStyle dateStyle" ng-model="condition.payTimeBegin" />
+                    到<input type="text" id="payTimeEnd" name="payTimeEnd" v-datepicker class="inputStyle dateStyle" ng-model="condition.payTimeEnd" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <input type="button" class="btn-info" value="重置" ng-click="clearCondition()" />
+                <input type="button" class="btn-info" value="查询" ng-click="querycashList(true)" />
+                <hr />
+            </div>
+        </div>
+    </form>
+</div>
+<div class="container" style="width:100%">
+    <div class="row">
+        <div class="col-md-6 pull-left">
+            <p>总条数：{{totalNum}}个 总提现申请金额：{{totalAmt}}元</p>
+        </div>
+        <div class="col-md-6 text-right">
+            <input type="button" class="btn-info" style="margin-bottom:10px;" value="导出" ng-click="exportRecord()" />
+        </div>
+    </div>
+</div>
+<div class="container" style="width:100%;overflow-x:auto;">
+    <table class="table-bordered text-center" style="width:1400px">
+        <thead>
+            <tr class=" bg-success listTrStyle">
+                <td>NO</td>
+                <td>申请编号</td>
+                <td>代理人姓名</td>
+                <td>身份证</td>
+                <td>手机号</td>
+                <td>申请提现金额（元）</td>
+                <td>打款状态</td>
+                <td>打款日期</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="listTrStyle" ng-repeat="cash in cashList">
+                <td>{{::$index+1}}</td>
+                <td>{{::cash.applyId}}</td>
+                <td>{{::cash.agentName}}</td>
+                <td>{{::cash.agentIdCard}}</td>
+                <td>{{::cash.agentMobile}}</td>
+                <td>{{::cash.applyAmt}}</td>
+                <td>{{::cash.status}}</td>
+                <td>{{::cash.payTime}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="container" style="width:100%;">
+    <div class="row">
+        <div class="col-md-4 text-left pull-left" style="margin-top:10px;">
+            <p>第{{pageIndex}}/{{pageNum}}页 每页{{pageSize}}条 共{{totalNum}}条记录</p>
+        </div>
+        <div class="col-md-8 pull-right">
+            <ul class="nav nav-tabs ulStyle">
+                <li style="margin-top:8px;">
+                    第<input type="text" class="inputStyle" style="width:30px;" ng-model="pageIndex" />页
+                </li>
+                <li style="margin-top:8px;">
+                    <input type="button" class="btn-danger" value="GO" ng-click="jumpPage()" />
+                </li>
+                <li>
+                    <a ng-click="firstPage()" class="hand">首页</a>
+                </li>
+                <li>
+                    <a ng-click="prePage()" class="hand">上一页</a>
+                </li>
+                <li>
+                    <a ng-click="nextPage()" class="hand">下一页</a>
+                </li>
+                <li>
+                    <a ng-click="lastPage()" class="hand">尾页</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

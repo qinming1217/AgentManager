@@ -1,0 +1,15 @@
+﻿<div class="container" style="width:80%">
+    <div class="row" style="margin-top:100px;">
+        <div class="col-md-7 text-right pull-left">
+            <label>导入提现结果：</label>
+            <input type="text" readonly="readonly" style="width:260px;" ng-model="filesName" />
+        </div>
+        <form name="feedback" method="post" enctype="multipart/form-data">
+            <div class="col-md-5 pull-left">
+                <input type="file" id="feedfile" name="feedfile" style="width:75px;" class="pull-left"
+                       onchange="angular.element(this).scope().setPath(this.files)" />
+                <input type="button" value="上传" ng-click="upload()" />
+            </div>
+        </form>
+    </div>
+</div>

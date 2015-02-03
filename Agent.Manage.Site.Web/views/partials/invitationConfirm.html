@@ -1,0 +1,15 @@
+﻿<div class="container" style="width:80%">
+    <div class="row" style="margin-top:100px;">
+        <div class="col-md-7 text-right pull-left">
+            <label>导入邀约结果：</label>
+            <input type="text" readonly="readonly" style="width:260px;" ng-model="filesName" />
+        </div>
+        <form name="invitationForm" method="post" enctype="multipart/form-data">
+            <div class="col-md-5 pull-left">
+                <input id="invitefile" name="invitefile" type="file" style="width:75px;" class="pull-left"
+                       onchange="angular.element(this).scope().setPath(this.files)" />
+                <input type="button" value="导入" style="height:23px;" ng-click="upload()" />
+            </div>
+        </form>
+    </div>
+</div>

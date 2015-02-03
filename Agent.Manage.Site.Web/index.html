@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html ng-app="ngIndexApp">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    <link href="js/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="styles/index.css" rel="stylesheet" />
+    <script type="text/javascript" src="js/vendor/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="js/vendor/bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript" src="js/vendor/angularjs/angular.min.js"></script>
+    <script type="text/javascript" src="js/vendor/angularjs/angular-resource.min.js"></script>
+    <script src="js/app/index/index.js"></script>
+    <script src="js/app/common/appconfig.js"></script>
+    <script src="js/app/index/controllers/indexController.js"></script>
+</head>
+<body ng-controller="indexController" ng-init="initUserInfo()">
+    <div class="container text-center" style="width:90%">
+        <!--top-->
+        <div class="row">
+            <div id="divHead" style="height:100px;" ng-include src=" 'views/common/header.html' ">
+            </div>
+        </div>
+        <!--content-->
+        <div class="row">
+            <!--left-->
+            <div class="col-md-2" style="height:700px;" id="divLeft">
+                <div class="row text-left" style="margin-left:10px;">
+                    <p><h3>个人信息</h3></p>
+                    <p>欢迎你：<label>{{user.name}}</label></p>
+                    <p>职务：<label>{{user.position}}</label></p>
+                    <p>所属部门：<label>{{user.department}}</label></p>
+                </div>
+                <div class="row text-left" style="margin-left:10px;">
+                    <ul class="nav nav-list">
+                        <li><h3>菜单列表</h3></li>
+                        <li ng-repeat="menu in menuList"><a href="#" ng-click="addTab(menu.url,menu.name)">{{menu.name}}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!--right-->
+            <div class="col-md-10" style="height:700px;" id="divRight">
+                <div class="row">
+                    <ul class="nav nav-tabs nav-pills">
+                        <li ng-repeat="tab in tabs">
+                            <a href="#" ng-dblclick="removeTab($index)" ng-click="redirectTo(tab.link)">
+                                {{tab.text}}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="row">
+                    <iframe id="myIframe" class="col-md-12" style="height: 700px;border: none;" ng-src="{{iframeSrc}}"></iframe>
+                </div>
+            </div>
+        </div>
+        <!--foot-->
+        <div class="row">
+            <div id="divFoot" style="height:100px;" ng-include src=" 'views/common/footer.html' ">
+            </div>
+        </div>
+    </div>
+    <!--cover-->
+    <div class="modal-backdrop fade in" id="divCover" style="display:none">
+
+    </div>
+    <!--invitationConfirm-->
+    <div class="container confrimStyle" role="dialog" id="divInvitationConfirm">
+        <div class="modal-header">
+            <button type="button" class="close" onclick="closeConfirm();">×</button>
+            <h3 id="myModalLabel">
+                订单信息
+            </h3>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-2">申请编号</div>
+                <div class="col-md-4">
+                    <label id="lblOrderId">123</label>
+                    <input type="hidden" id="index" />
+                </div>
+                <div class="col-md-2">客户姓名</div>
+                <div class="col-md-4">
+                    <label id="lblCustomerName">张三</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">身份证</div>
+                <div class="col-md-4">
+                    <label id="lblIdCard">430422199312171011</label>
+                </div>
+                <div class="col-md-2">手机号</div>
+                <div class="col-md-4">
+                    <label id="lblMobileNo">15377476138</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    请输入VBS业务号：
+                </div>
+                <div class="col-md-8">
+                    <input type="text" id="txtVbsBid" />
+                    <span class="error">*</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    请再次输入VBS业务号：
+                </div>
+                <div class="col-md-8">
+                    <input type="text" id="txtConfirmVbsBid"/>
+                    <span class="error">*</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8 col-md-push-4">
+                    <label class="error" id="lblMessage"></label>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="submitOrder();">确认</button>
+            <button class="btn" onclick="closeConfirm();">取消</button>
+        </div>
+    </div>
+</body>
+</html>
